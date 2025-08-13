@@ -15,10 +15,10 @@ This repository contains my exercise solutions and projects from the LLM Enginee
 
 ```
 llm-exercises/
-├── week1/              # Week 1 exercises
-├── week2/              # Week 2 exercises
-├── week3/              # Week 3 exercises
-├── week4/              # In Progress
+├── week1/              # Week 1 exercise
+├── week2/              # Week 2 exercise
+├── week3/              # Week 3 exercise
+├── week4/              # Week 4 exercise
 └── README.md
 ```
 
@@ -39,6 +39,10 @@ llm-exercises/
 - Model fine-tuning
 - Advanced prompting
 
+### Week 4
+- Compare open source vs closed source models
+- Evaluate code generation
+- Generate code for business tasks
 ## Usage
 
 Each week's exercises are contained in their own directory with dedicated notebooks and Python files.
