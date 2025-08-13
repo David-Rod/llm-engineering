@@ -19,6 +19,7 @@ llm-exercises/
 ├── week2/              # Week 2 exercise
 ├── week3/              # Week 3 exercise
 ├── week4/              # Week 4 exercise
+├── week5/              # Week 5 exercise
 └── README.md
 ```
 
@@ -43,6 +44,13 @@ llm-exercises/
 - Compare open source vs closed source models
 - Evaluate code generation
 - Generate code for business tasks
+
+### Week 5
+- RAG fundamentals
+- LangChain
+- Vector Databases
+
+
 ## Usage
 
 Each week's exercises are contained in their own directory with dedicated notebooks and Python files.
