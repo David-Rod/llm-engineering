@@ -15,11 +15,12 @@ This repository contains my exercise solutions and projects from the LLM Enginee
 
 ```
 llm-exercises/
-├── week1/              # Week 1 exercise
-├── week2/              # Week 2 exercise
-├── week3/              # Week 3 exercise
-├── week4/              # Week 4 exercise
-├── week5/              # Week 5 exercise
+├── week1/
+├── week2/
+├── week3/
+├── week4/
+├── week5/
+├── week6/
 └── README.md
 ```
 
