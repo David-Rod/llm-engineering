@@ -1,0 +1,6 @@
+.env
+
+*.txt
+
+email_vector_db/
+knowledge_base/
