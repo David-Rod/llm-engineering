@@ -51,6 +51,11 @@ llm-exercises/
 - LangChain
 - Vector Databases
 
+### Week 6
+- Fine Tuning Frontier Models
+- Weights and biases jobs
+- Processing and storage of training data as files
+- **_NOTE_**: There is an issue with the approach for this week since the `*_lite.pkl` data files contain a poor distribution of pricing, skewing results to appear better than they are since item prices are mostly cheap. The fine tuned version of chat gpt also correctly predicted exact prices for test data indicating overtraining or training on exact subset of data.
 
 ## Usage
 

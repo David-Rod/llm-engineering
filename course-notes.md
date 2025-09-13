@@ -270,3 +270,34 @@
 
 ### Streaming
 - Streams of results that come back (text streaming)
+
+## Hyperparameters in LLM Training
+
+A **hyperparameter** in the context of training LLMs is a configuration setting that you choose before training begins and that controls how the training process works, rather than being learned by the model itself.
+
+### Key Characteristics:
+- **Set by humans**, not learned by the model
+- **Controls the training process** and model architecture
+- **Requires experimentation** to find optimal values
+- **Affects model performance** but isn't part of the learned weights
+
+### Common LLM Hyperparameters:
+
+#### Training Process
+- **Learning rate**: How fast the model updates its weights
+- **Batch size**: Number of examples processed together
+- **Number of epochs**: How many times to go through the entire dataset
+- **Optimizer type**: Algorithm used to update weights (Adam, SGD, etc.)
+
+#### Model Architecture
+- **Number of layers**: Depth of the neural network
+- **Hidden dimensions**: Size of internal representations
+- **Attention heads**: Number of parallel attention mechanisms
+- **Context length**: Maximum sequence length the model can process
+
+#### Regularization
+- **Dropout rate**: Percentage of neurons randomly turned off during training
+- **Weight decay**: Penalty for large weights to prevent overfitting
+
+#### Example from Course:
+The **180 token limit** for product descriptions is a hyperparameter choice - determined through experimentation to balance having enough information for pricing while keeping training efficient. The instructor noted this was "trial and error" to find the right balance between information richness and computational efficiency - which is exactly how
