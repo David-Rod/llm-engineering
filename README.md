@@ -15,11 +15,12 @@ This repository contains my exercise solutions and projects from the LLM Enginee
 
 ```
 llm-exercises/
-├── week1/              # Week 1 exercise
-├── week2/              # Week 2 exercise
-├── week3/              # Week 3 exercise
-├── week4/              # Week 4 exercise
-├── week5/              # Week 5 exercise
+├── week1/
+├── week2/
+├── week3/
+├── week4/
+├── week5/
+├── week6/
 └── README.md
 ```
 
@@ -50,6 +51,11 @@ llm-exercises/
 - LangChain
 - Vector Databases
 
+### Week 6
+- Fine Tuning Frontier Models
+- Weights and biases jobs
+- Processing and storage of training data as files
+- **_NOTE_**: There is an issue with the approach for this week since the `*_lite.pkl` data files contain a poor distribution of pricing, skewing results to appear better than they are since item prices are mostly cheap. The fine tuned version of chat gpt also correctly predicted exact prices for test data indicating overtraining or training on exact subset of data.
 
 ## Usage
 
