@@ -195,6 +195,34 @@
 
 ### Week 6: Fine-tuning Frontier LLMs with LoRA/QLoRA
 
+#### LoRA (Low-Rank Adaptation)
+- **Definition**: A parameter-efficient fine-tuning technique that reduces the number of trainable parameters by orders of magnitude while maintaining model performance
+- **Key Concept**: Instead of updating all model weights, LoRA freezes the original model weights and introduces trainable rank decomposition matrices alongside existing weights --> Smaller matrices with fewer dimensions and train those new matrices. These are based on target module in the data
+- **Technical Details**:
+  - Decomposes weight updates into two smaller matrices (A and B) where the rank is much smaller than the original weight matrix
+  - Original weight W₀ remains frozen
+- **Benefits**:
+  - Reduces trainable parameters by 10,000x (e.g., GPT-3 175B → 4.7M trainable parameters)
+  - Maintains model quality comparable to full fine-tuning
+  - Enables fine-tuning on consumer hardware
+  - Multiple LoRA adapters can be trained for different tasks and swapped efficiently
+
+#### QLoRA (Quantized LoRA)
+- **Definition**: An extension of LoRA that combines quantization with low-rank adaptation for even more memory-efficient fine-tuning, keep weights but reduce their precision by reducing memory needed to store weight value (32 bit to 8 bit or 4 bit)
+- **Key Innovation**: Uses 4-bit quantization of the base model while keeping LoRA adapters in higher precision
+- **Technical Components**:
+  - **4-bit NormalFloat (NF4)**: Information-theoretically optimal quantization scheme for normally distributed weights
+  - **Double Quantization**: Quantizes the quantization constants themselves to save additional memory
+  - **Paged Optimizers**: Uses NVIDIA unified memory to handle memory spikes during training
+- **Memory Efficiency**:
+  - Reduces memory usage by ~65% compared to LoRA
+  - Enables fine-tuning of 65B parameter models on a single 48GB GPU
+  - Maintains performance within 1% of full 16-bit fine-tuning
+- **Workflow**:
+  1. Load pre-trained model in 4-bit precision
+  2. Add LoRA adapters in 16-bit precision
+  3. Train only the LoRA parameters while keeping base model frozen and quantized
+
 #### Inference Methods
 - Trained LLM uses learned knowledge to generate outputs based on a given input
   - Multi-shot prompting
@@ -301,3 +329,54 @@ A **hyperparameter** in the context of training LLMs is a configuration setting 
 
 #### Example from Course:
 The **180 token limit** for product descriptions is a hyperparameter choice - determined through experimentation to balance having enough information for pricing while keeping training efficient. The instructor noted this was "trial and error" to find the right balance between information richness and computational efficiency - which is exactly how
+
+
+### Week 7: Fine-tuning Open-Source LLMs with LoRA/QLoRA
+#### 3 Hyperparameters pertinent ot QLoRA
+- **R**: Rank, how many dimensions in the low-rank matrices (Start with 8)
+- **Alpha**: Scaling factor the multiplies the lower rank matrices (Aplha * A matrix * B matrix), Start with 2x value of R
+- **Target Modules**: which layers in neural network are adapted, target the attention head layers
+
+
+### LLM Hyperparameter Definitions
+
+#### Core Hyperparameters
+
+##### Epochs
+Complete passes through the entire training dataset. One epoch = the model has seen every training example once. More epochs can improve learning but risk overfitting.
+
+##### Batch Size
+Number of training examples processed together before updating model weights. Larger batches provide more stable gradient estimates but require more memory.
+
+##### Learning Rate
+Step size for weight updates during training. Controls how much the model changes with each update. Too high causes instability; too low causes slow learning.
+
+##### Gradient Accumulation
+Technique to simulate larger batch sizes by accumulating gradients over multiple smaller batches before updating weights. Useful when memory limits prevent large batches.
+
+##### Optimizer
+Algorithm that determines how to update model weights based on gradients. Common types include Adam, SGD, and AdamW. Different optimizers have different convergence properties and memory requirements.
+
+#### Key Relationships
+
+##### Batch Size ↔ Gradient Accumulation
+Inversely related - use gradient accumulation when you can't fit desired batch size in memory
+
+##### Learning Rate ↔ Batch Size
+Larger batches often allow higher learning rates (more stable gradients)
+
+##### Learning Rate ↔ Optimizer
+Different optimizers respond differently to learning rate changes; Adam typically needs lower rates than SGD
+
+##### Epochs ↔ Learning Rate
+Often decay learning rate over epochs to fine-tune convergence
+
+##### Training Time Considerations
+All parameters affect training time: Larger batches and higher learning rates can reduce epochs needed, but may hurt final performance
+
+
+#### Training Process (4 steps)
+- Forward pass - predict the next token in training data
+- Loss calculation - How different was the predicted token to the actual next token
+- Backward pass (backward propogation) - How much should the parameters be tweaked to enhance performance
+- Optimization - updates parameters a tiny step to do better (weight adjustments)
